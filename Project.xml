@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- _________________________ Application Settings _________________________ -->
+
+	<app title="Friday Night Funkin'" file="Funkin" packageName="com.grafex.funkin" package="com.grafex.funkin" main="funkin.system.Main" version="0.0.1" company="GrafexReloaded" /> <!-- 'GrafexReloaded' it's a code name-->
+	<app preloader="flixel.system.FlxPreloader" />
+	<!-- ____________________________ Window Settings ___________________________ -->
+
+	<window width = "1280" height = "720" background = "0x00FFFFFF" fps = "60" hardware = "true" vsync = "false" />
+	<window if = "desktop" orientation = "landscape" fullscreen = "false" resizable = "true"/>
+
+	<!-- _____________________________ Path Settings ____________________________ -->
+
+	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/release" unless="debug"/>
+	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
+
+	<classpath name="source" />
+
+	<haxelib name="flixel"/>
+
+	<haxelib name="hxcpp-debug-server" if="desktop debug"/>
+	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
+	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
+	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
+
+	<haxedef name='no-deprecation-warnings' />
+
+	<haxeflag name="--macro" value="allowPackage('flash')" />
+	<haxeflag name="--macro" value="include('my.pack')" />
+
+	<icon path="external/iconOG.png" />
+</project>
