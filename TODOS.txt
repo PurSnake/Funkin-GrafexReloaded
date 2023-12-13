@@ -1,0 +1,15 @@
+ • Rewrite Lime and stop using the "manifest" folder
+ • Make optimized sprite loading (Maybe add Preloading state, which will appear after the HaxeFlixel intro and then launch the intro sound (yes, from the teaser/trailer/show case from the Newgrounds channel) then moving into TitleState
+ • Rewrite the chart system:
+	songs/
+		—specific song/
+			—chart folder/
+				—hard.json
+				—normal.json
+				—ease.json
+				—and other difficulties charts 						
+			—Some Voices-Player/-Opponent.ogg files (Support for split voice tracks) 
+			—Inst ogg file
+ • HScript/Lua(Optional) support
+ • Modding stuff from Polymod (like customClasses and etc)
+ # We'll move on from this
