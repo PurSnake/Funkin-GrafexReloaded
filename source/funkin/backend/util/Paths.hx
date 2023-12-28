@@ -1,4 +1,4 @@
-package funkin.util;
+package funkin.backend.util;
 
 #if desktop
 import sys.FileSystem;

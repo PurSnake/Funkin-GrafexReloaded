@@ -3,7 +3,7 @@ import flixel.FlxG;
 import flixel.math.FlxMath;
 
 
-import funkin.util.Paths;
+import funkin.backend.util.Paths;
 
 
 using StringTools;

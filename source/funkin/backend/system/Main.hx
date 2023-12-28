@@ -1,4 +1,4 @@
-package funkin.system;
+package funkin.backend.system;
 
 // OpenFL Application stuff
 import openfl.Lib;

@@ -2,13 +2,20 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin'" file="Funkin" packageName="com.grafex.funkin" package="com.grafex.funkin" main="funkin.system.Main" version="0.0.1" company="GrafexReloaded" /> <!-- 'GrafexReloaded' it's a code name-->
+	<app
+		title="Friday Night Funkin'" file="Funkin"
+		packageName="com.grafex.funkin" package="com.grafex.funkin"
+		main="funkin.backend.system.Main" version="0.0.1"
+		company="GrafexReloaded"
+	/> <!-- 'GrafexReloaded' it's a code name-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 	<app preloader="flixel.system.FlxPreloader" />
 	<set name="SWF_VERSION" value="11.8" />
 
-	<window width = "1280" height = "720" background = "0x00FFFFFF" fps = "60" hardware = "true" vsync = "false" />
-	<window if = "desktop" orientation = "landscape" fullscreen = "false" resizable = "true"/>
+	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- Suppose to stable LUAs for our kind, ShadowMario -_- -->
+
+	<window width="1280" height="720" background="0x00FFFFFF" fps="60" hardware="true" vsync="false" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true"/>
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug"/>
@@ -17,18 +24,34 @@
 	<classpath name="source" />
 
 	<assets path="assets" exclude="*.mp3|*.mdp" unless="web"/>
-	<assets path="embedded" rename="assets" embed="true"/>
-	<template path="example_mods" rename="mods" />
+	<assets path="embedded" exclude="*.mp3|*.mdp" rename="assets" embed="true"/>
+	<assets path="example_mods" rename="mods" embed="false"/>
 
+
+	<!-- Game defines -->
+	<define name="CRASH_HANDLER" if="desktop"/>
+	<define name="ENABLE_MODS" if="desktop"/>
+	<define name="ENABLE_LUA" if="windows"/>
+	<define name="ENABLE_HSCRIPT" if="windows"/>
+	<define name="ENABLE_DEV" unless="final"/>
+
+	<!-- Core game libs -->
 	<haxelib name="flixel"/>
 	<haxelib name="flixel-addons"/>
-	<haxelib name="flixel-ui" />
+	<haxelib name="flixel-ui"/>
+	<haxedev set="webgl"/>
 
+	<!-- Additional game libs -->
+	<haxelib name="tjson"/>
+	<haxelib name="hscript-improved" if="ENABLE_HSCRIPT"/>
+	<haxedef name="hscriptPos" if="ENABLE_HSCRIPT"/>
+	<haxedef name="openflPos"/>
+	<haxelib name="linc_luajit" if="ENABLE_LUA"/>
 	
 	<error value="Nintendo Switch is not supported." if="switch"/>
 
+	<!-- Application set's -->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
-
 	<haxelib name="hxcpp-debug-server" if="desktop debug"/>
 	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />

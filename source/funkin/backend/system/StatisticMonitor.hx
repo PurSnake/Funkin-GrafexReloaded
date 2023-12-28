@@ -1,4 +1,4 @@
-package funkin.system;
+package funkin.backend.system;
 
 import haxe.Timer;
 import openfl.events.Event;
