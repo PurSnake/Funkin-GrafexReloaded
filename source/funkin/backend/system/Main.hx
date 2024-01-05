@@ -36,6 +36,19 @@ class InitState extends flixel.FlxState
 }
 
 class Main extends openfl.display.Sprite {
+
+	public static var instance:Main;
+	#if !mobile
+	public static var statisticMonitor:StatisticMonitor;
+	#end
+	public static var scaleMode:FunkinRatioScaleMode;
+	public static var game:FunkinGame;
+
+	public static var modToLoad:String = null;
+
+	public static var time:Int = 0;
+
+
 	var game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
@@ -45,7 +58,6 @@ class Main extends openfl.display.Sprite {
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
 
-	public static var statisticMonitor:StatisticMonitor;
 
 	public static function main():Void {
 		Lib.current.addChild(new Main());

@@ -11,6 +11,18 @@ class Paths
 
 	public static var modsFolders:Array<String> = [];
 	public static var currentModDirectory:String;
+	public static var ignoreModFolders:Array<String> = [
+		'data',
+		'fonts',
+		'images',
+		'songs',
+		'music',
+		'sounds',
+		'source',
+		'shaders',
+		'videos',
+		'source'
+	];
 
 	private static function set_currentLevel(value:String)
 		return currentLevel = value.toLowerCase();
@@ -18,7 +30,7 @@ class Paths
 	inline public static function reloadModsPaths()
 	{
 		final modsFolderDirectory = modsDirectory();
-		for (folder in FileSystem.readDirectory(modsFolderDirectory)) if (FileSystem.isDirectory(folder) && !modsFolders.contains(folder)) modsFolders.push(folder);
+		for (folder in FileSystem.readDirectory(modsFolderDirectory)) if (FileSystem.isDirectory(folder) && !modsFolders.contains(folder) && !ignoreModFolders.contains(folder)) modsFolders.push(folder);
 
 				/*final path = haxe.io.Path.join([modsFolderDirectory, folder]);
 			    if (sys.FileSystem.isDirectory(path) && !modsFolder.contains(folder)) {
@@ -28,10 +40,8 @@ class Paths
 
 	public static function getPath(file:String, ?library:Null<String> = null, ?modsAllowed:Bool = true):String
 	{
-		file = file.replace("\\", "/");
-		while(file.contains("//")) {
+		while(file.contains("//")) 
 			file = file.replace("//", "/");
-		}
 
 		if(modsAllowed)
 		{
@@ -48,6 +58,11 @@ class Paths
 		}
 
 		return getPreloadPath(file);
+	}
+
+	inline static public function data(key:String, ?library:String, ?mods:Bool = true)
+	{
+		return getPath('data/$key', library, mods);
 	}
 
 	static public function getLibraryPath(file:String, library = "assets")
@@ -112,4 +127,31 @@ class Paths
 		return FileSystem.exists(getPath(path, library, false));
 	}
 
+        public static function download(leUrl:String, path:String):Void {
+            var http = new Http(leUrl);
+            var output:BytesOutput = new BytesOutput();
+            http.customRequest(false, output);
+            File.saveBytes(path, output.getBytes());
+        }
+
+	//GAMEPLAY STUFF
+	inline static public function chart(song:String, ?key:String = 'normal')
+	{
+		return getPath('data/$song/$key.json', TEXT);
+	}
+
+	inline static public function songAudio(song:String, file:String = 'Inst', ?postfix:String = ''):Any
+	{
+		final fileKey:String = '${formatToSongPath(song)}/$file' + postfix;
+		return returnSound('songs', fileKey);
+	}
+
+
+	/*inline static public function songAudio(song:String, ?postfix:String = ''):Any
+	{
+		var songKey:String = '${formatToSongPath(song)}/Voices'+postfix;
+		trace(songKey);
+		var voices = returnSound('songs', songKey);
+		return voices;
+	}*/
 }
